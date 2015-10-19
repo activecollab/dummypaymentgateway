@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "673c146795cb3e9a2e494aa3be93ecab",
-    "content-hash": "c3278cdbf33606d593dd5a19e72f58b9",
+    "hash": "05f0a77f1fd20b98a851f6dd89913e2d",
+    "content-hash": "27f7dcbaf4300588063b2c361bdd0a85",
     "packages": [
         {
             "name": "activecollab/datevalue",
@@ -53,6 +53,53 @@
                 "datetime"
             ],
             "time": "2015-10-10 13:10:03"
+        },
+        {
+            "name": "activecollab/payments",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/activecollab/payments.git",
+                "reference": "e96802668edc91904edb267b7a4d00ee34580546"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/activecollab/payments/zipball/e96802668edc91904edb267b7a4d00ee34580546",
+                "reference": "e96802668edc91904edb267b7a4d00ee34580546",
+                "shasum": ""
+            },
+            "require": {
+                "activecollab/datevalue": "dev-master",
+                "activecollab/user": "~1.0",
+                "php": ">=5.6.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.8"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "ActiveCollab\\Payments\\": "src",
+                    "ActiveCollab\\Payments\\Test\\": "test/src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ilija Studen",
+                    "email": "ilija.studen@activecollab.com"
+                }
+            ],
+            "description": "Abstract interface for preparing orders and processing payments",
+            "homepage": "https://labs.activecollab.com",
+            "keywords": [
+                "activecollab",
+                "payments"
+            ],
+            "time": "2015-10-17 17:16:13"
         },
         {
             "name": "activecollab/user",
@@ -1189,7 +1236,8 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "activecollab/datevalue": 20
+        "activecollab/datevalue": 20,
+        "activecollab/payments": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,
