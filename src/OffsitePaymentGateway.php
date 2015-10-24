@@ -52,6 +52,16 @@ class OffsitePaymentGateway extends Gateway
     }
 
     /**
+     * Return gateway identifier
+     *
+     * @return string
+     */
+    public function getIdentifier()
+    {
+        return 'dopg'; // Dummy Offsite Payment Gateway
+    }
+
+    /**
      * Return order by order ID
      *
      * @param  string         $reference
