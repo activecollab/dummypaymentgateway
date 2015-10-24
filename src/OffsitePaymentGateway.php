@@ -159,6 +159,7 @@ class OffsitePaymentGateway extends Gateway
      */
     public function triggerSubscriptionActivated(SubscriptionInterface $subscription)
     {
+        $subscription->setGateway($this);
         $this->subscriptions[$subscription->getReference()] = $subscription;
 
         $this->getDispatcher()->triggerSubscriptionActivated($this, $subscription);
@@ -172,6 +173,7 @@ class OffsitePaymentGateway extends Gateway
      */
     public function triggerSubscriptionRebill(SubscriptionInterface $subscription, DateTimeValueInterface $timestamp = null)
     {
+        $subscription->setGateway($this);
         $this->subscriptions[$subscription->getReference()] = $subscription;
 
         if (empty($timestamp)) {
@@ -192,6 +194,7 @@ class OffsitePaymentGateway extends Gateway
      */
     public function triggerSubscriptionChange(SubscriptionInterface $subscription, DateTimeValueInterface $timestamp = null)
     {
+        $subscription->setGateway($this);
         $this->subscriptions[$subscription->getReference()] = $subscription;
 
         if (empty($timestamp)) {
@@ -212,6 +215,7 @@ class OffsitePaymentGateway extends Gateway
      */
     public function triggerSubscriptionDeactivated(SubscriptionInterface $subscription, DateTimeValueInterface $timestamp = null)
     {
+        $subscription->setGateway($this);
         $this->subscriptions[$subscription->getReference()] = $subscription;
 
         if (empty($timestamp)) {
@@ -234,6 +238,7 @@ class OffsitePaymentGateway extends Gateway
      */
     public function triggerSubscriptionFailedPayment(SubscriptionInterface $subscription, DateTimeValueInterface $timestamp = null)
     {
+        $subscription->setGateway($this);
         $this->subscriptions[$subscription->getReference()] = $subscription;
 
         if (empty($timestamp)) {
