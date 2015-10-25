@@ -60,12 +60,12 @@ class OffsitePaymentGatewayTest extends TestCase
         $this->customer = new Customer('John Doe', 'john@example.com');
         $this->timestamp = new DateTimeValue('2015-10-15');
         $this->order = new Order($this->customer, '2015-01', $this->timestamp, 'USD', 1200, [
-        new OrderItem('Expensive product', 1, 1000),
-        new OrderItem('Not so expensive product', 2, 100),
+            new OrderItem('Expensive product', 1, 1000),
+            new OrderItem('Not so expensive product', 2, 100),
         ]);
 
         $this->subscription = new Subscription($this->customer, '2015-01', $this->timestamp, SubscriptionInterface::MONTHLY, 'USD', 25, [
-        new OrderItem('Monthly SaaS cost', 1, 25),
+            new OrderItem('Monthly SaaS cost', 1, 25),
         ]);
     }
 
@@ -197,11 +197,12 @@ class OffsitePaymentGatewayTest extends TestCase
 
             $this->assertEquals($this->subscription->getReference(), $subscription->getReference());
             $this->assertEquals($this->subscription->getReference(), $rebill->getSubscriptionReference());
+            $this->assertEquals($this->timestamp->addMonth()->format('Y-m-d'), $rebill->getNextBillingTimestamp()->format('Y-m-d'));
 
             $event_triggered = true;
         });
 
-        $this->gateway->triggerSubscriptionRebill($this->subscription);
+        $this->gateway->triggerSubscriptionRebill($this->subscription, $this->timestamp);
 
         $this->assertTrue($event_triggered);
     }
