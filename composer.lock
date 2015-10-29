@@ -13,12 +13,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/activecollab/datevalue.git",
-                "reference": "ad728d079dd99788d771f47bf0000fbd7ca9c2e7"
+                "reference": "394414656ddbaf972edd95948e6935ca9105a142"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/activecollab/datevalue/zipball/ad728d079dd99788d771f47bf0000fbd7ca9c2e7",
-                "reference": "ad728d079dd99788d771f47bf0000fbd7ca9c2e7",
+                "url": "https://api.github.com/repos/activecollab/datevalue/zipball/394414656ddbaf972edd95948e6935ca9105a142",
+                "reference": "394414656ddbaf972edd95948e6935ca9105a142",
                 "shasum": ""
             },
             "require": {
@@ -52,7 +52,7 @@
                 "date",
                 "datetime"
             ],
-            "time": "2015-10-10 13:10:03"
+            "time": "2015-10-29 17:35:49"
         },
         {
             "name": "activecollab/payments",
@@ -220,16 +220,16 @@
         },
         {
             "name": "symfony/translation",
-            "version": "v2.7.5",
+            "version": "v2.7.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/translation.git",
-                "reference": "485877661835e188cd78345c6d4eef1290d17571"
+                "reference": "6ccd9289ec1c71d01a49d83480de3b5293ce30c8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/translation/zipball/485877661835e188cd78345c6d4eef1290d17571",
-                "reference": "485877661835e188cd78345c6d4eef1290d17571",
+                "url": "https://api.github.com/repos/symfony/translation/zipball/6ccd9289ec1c71d01a49d83480de3b5293ce30c8",
+                "reference": "6ccd9289ec1c71d01a49d83480de3b5293ce30c8",
                 "shasum": ""
             },
             "require": {
@@ -242,7 +242,6 @@
                 "psr/log": "~1.0",
                 "symfony/config": "~2.7",
                 "symfony/intl": "~2.4",
-                "symfony/phpunit-bridge": "~2.7",
                 "symfony/yaml": "~2.2"
             },
             "suggest": {
@@ -277,7 +276,7 @@
             ],
             "description": "Symfony Translation Component",
             "homepage": "https://symfony.com",
-            "time": "2015-09-06 08:36:38"
+            "time": "2015-10-27 15:38:06"
         }
     ],
     "packages-dev": [
@@ -1185,23 +1184,20 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v2.7.5",
+            "version": "v2.7.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "31cb2ad0155c95b88ee55fe12bc7ff92232c1770"
+                "reference": "eca9019c88fbe250164affd107bc8057771f3f4d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/31cb2ad0155c95b88ee55fe12bc7ff92232c1770",
-                "reference": "31cb2ad0155c95b88ee55fe12bc7ff92232c1770",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/eca9019c88fbe250164affd107bc8057771f3f4d",
+                "reference": "eca9019c88fbe250164affd107bc8057771f3f4d",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.9"
-            },
-            "require-dev": {
-                "symfony/phpunit-bridge": "~2.7"
             },
             "type": "library",
             "extra": {
@@ -1230,7 +1226,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2015-09-14 14:14:09"
+            "time": "2015-10-11 09:39:48"
         }
     ],
     "aliases": [],
