@@ -190,7 +190,7 @@ class OffsitePaymentGatewayTest extends TestCase
     {
         $event_triggered = false;
 
-        $this->dispatcher->listen(DispatcherInterface::ON_SUBSCRIPTION_REBILL, function(GatewayInterface $gateway, SubscriptionInterface $subscription, RebillInterface $rebill) use (&$event_triggered) {
+        $this->dispatcher->listen(DispatcherInterface::ON_SUBSCRIPTION_REBILLED, function(GatewayInterface $gateway, SubscriptionInterface $subscription, RebillInterface $rebill) use (&$event_triggered) {
             $this->assertInstanceOf(OffsitePaymentGateway::class, $gateway);
             $this->assertInstanceOf(Subscription::class, $subscription);
             $this->assertInstanceOf(RebillInterface::class, $rebill);
