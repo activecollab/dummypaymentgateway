@@ -202,7 +202,7 @@ class OffsitePaymentGatewayTest extends TestCase
             $event_triggered = true;
         });
 
-        $this->gateway->triggerSubscriptionRebill($this->subscription, $this->timestamp);
+        $this->gateway->triggerSubscriptionRebilled($this->subscription, $this->timestamp);
 
         $this->assertTrue($event_triggered);
     }
@@ -225,7 +225,7 @@ class OffsitePaymentGatewayTest extends TestCase
             $event_triggered = true;
         });
 
-        $this->gateway->triggerSubscriptionChange($this->subscription);
+        $this->gateway->triggerSubscriptionChanged($this->subscription);
 
         $this->assertTrue($event_triggered);
     }
