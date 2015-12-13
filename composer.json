@@ -14,7 +14,7 @@
   ],
   "require" : {
     "php": ">=5.6.0",
-    "activecollab/datevalue" : "dev-master",
+    "activecollab/datevalue" : "~1.0.0",
     "activecollab/user" : "~1.0",
     "activecollab/payments" : "dev-master"
   },
