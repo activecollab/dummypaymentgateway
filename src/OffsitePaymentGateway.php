@@ -18,7 +18,6 @@ use ActiveCollab\Payments\Subscription\SubscriptionInterface;
 use InvalidArgumentException;
 
 /**
- * @package ActiveCollab\Payments\Test\Fixtures
  */
 class OffsitePaymentGateway extends Gateway
 {
@@ -46,7 +45,7 @@ class OffsitePaymentGateway extends Gateway
     }
 
     /**
-     * Return gateway identifier
+     * Return gateway identifier.
      *
      * @return string
      */
@@ -56,9 +55,10 @@ class OffsitePaymentGateway extends Gateway
     }
 
     /**
-     * Return order by order ID
+     * Return order by order ID.
      *
-     * @param  string         $reference
+     * @param string $reference
+     *
      * @return OrderInterface
      */
     public function getOrderByReference($reference)
@@ -71,9 +71,10 @@ class OffsitePaymentGateway extends Gateway
     }
 
     /**
-     * Return refund by refund ID
+     * Return refund by refund ID.
      *
-     * @param  string          $refund_reference
+     * @param string $refund_reference
+     *
      * @return RefundInterface
      */
     public function getRefundByReference($refund_reference)
@@ -86,7 +87,7 @@ class OffsitePaymentGateway extends Gateway
     }
 
     /**
-     * Trigger product order completed
+     * Trigger product order completed.
      *
      * @param OrderInterface $order
      */
@@ -98,7 +99,7 @@ class OffsitePaymentGateway extends Gateway
     }
 
     /**
-     * Trigger order has been fully refunded
+     * Trigger order has been fully refunded.
      *
      * @param OrderInterface              $order
      * @param DateTimeValueInterface|null $timestamp
@@ -111,7 +112,7 @@ class OffsitePaymentGateway extends Gateway
             $timestamp = new DateTimeValue();
         }
 
-        $refund = new Refund($order->getReference() . '-X', $order->getReference(), $timestamp, $order->getTotal());
+        $refund = new Refund($order->getReference().'-X', $order->getReference(), $timestamp, $order->getTotal());
         $refund->setGateway($this);
 
         $this->refunds[$refund->getReference()] = $refund;
@@ -120,7 +121,7 @@ class OffsitePaymentGateway extends Gateway
     }
 
     /**
-     * Trigger order has been partially refunded
+     * Trigger order has been partially refunded.
      *
      * @param OrderInterface              $order
      * @param OrderItemInterface[]        $items
@@ -134,7 +135,7 @@ class OffsitePaymentGateway extends Gateway
             $timestamp = new DateTimeValue();
         }
 
-        $refund = new Refund($order->getReference() . '-X', $order->getReference(), $timestamp, 200);
+        $refund = new Refund($order->getReference().'-X', $order->getReference(), $timestamp, 200);
         $refund->setGateway($this);
 
         if (!empty($items)) {
@@ -147,20 +148,20 @@ class OffsitePaymentGateway extends Gateway
     }
 
     /**
-     * Trigger subscription activated (created) event
+     * Trigger subscription activated (created) event.
      *
      * @param SubscriptionInterface $subscription
      */
     public function triggerSubscriptionActivated(SubscriptionInterface $subscription)
     {
         $subscription->setGateway($this);
-        $this->subscriptions[$subscription->getReference()] = $subscription;
+        $this->registerSubscription($subscription);
 
         $this->getDispatcher()->triggerSubscriptionActivated($this, $subscription);
     }
 
     /**
-     * Trigger subscription failed payment event
+     * Trigger subscription failed payment event.
      *
      * @param SubscriptionInterface       $subscription
      * @param DateTimeValueInterface|null $timestamp
@@ -169,7 +170,7 @@ class OffsitePaymentGateway extends Gateway
     public function triggerSubscriptionRebilled(SubscriptionInterface $subscription, DateTimeValueInterface $timestamp = null, DateTimeValueInterface $next_billing_timestamp = null)
     {
         $subscription->setGateway($this);
-        $this->subscriptions[$subscription->getReference()] = $subscription;
+        $this->registerSubscription($subscription);
 
         if (empty($timestamp)) {
             $timestamp = new DateTimeValue();
@@ -186,7 +187,7 @@ class OffsitePaymentGateway extends Gateway
     }
 
     /**
-     * Trigger subscription failed payment event
+     * Trigger subscription failed payment event.
      *
      * @param SubscriptionInterface       $subscription
      * @param DateTimeValueInterface|null $timestamp
@@ -194,7 +195,7 @@ class OffsitePaymentGateway extends Gateway
     public function triggerSubscriptionChanged(SubscriptionInterface $subscription, DateTimeValueInterface $timestamp = null)
     {
         $subscription->setGateway($this);
-        $this->subscriptions[$subscription->getReference()] = $subscription;
+        $this->registerSubscription($subscription);
 
         if (empty($timestamp)) {
             $timestamp = new DateTimeValue();
@@ -207,7 +208,7 @@ class OffsitePaymentGateway extends Gateway
     }
 
     /**
-     * Trigger subscription deactivated (canceled) event
+     * Trigger subscription deactivated (canceled) event.
      *
      * @param SubscriptionInterface       $subscription
      * @param DateTimeValueInterface|null $timestamp
@@ -215,7 +216,7 @@ class OffsitePaymentGateway extends Gateway
     public function triggerSubscriptionDeactivated(SubscriptionInterface $subscription, DateTimeValueInterface $timestamp = null)
     {
         $subscription->setGateway($this);
-        $this->subscriptions[$subscription->getReference()] = $subscription;
+        $this->registerSubscription($subscription);
 
         if (empty($timestamp)) {
             $timestamp = new DateTimeValue();
@@ -228,7 +229,7 @@ class OffsitePaymentGateway extends Gateway
     }
 
     /**
-     * Trigger subscription failed payment event
+     * Trigger subscription failed payment event.
      *
      * @param SubscriptionInterface       $subscription
      * @param DateTimeValueInterface|null $timestamp
@@ -236,7 +237,7 @@ class OffsitePaymentGateway extends Gateway
     public function triggerSubscriptionFailedPayment(SubscriptionInterface $subscription, DateTimeValueInterface $timestamp = null)
     {
         $subscription->setGateway($this);
-        $this->subscriptions[$subscription->getReference()] = $subscription;
+        $this->registerSubscription($subscription);
 
         if (empty($timestamp)) {
             $timestamp = new DateTimeValue();
@@ -246,5 +247,15 @@ class OffsitePaymentGateway extends Gateway
         $failed_payment->setGateway($this);
 
         $this->getDispatcher()->triggerSubscriptionPaymentFailed($this, $subscription, $failed_payment);
+    }
+
+    /**
+     * Add subscription to the list of available subscriptions.
+     *
+     * @param SubscriptionInterface $subscription
+     */
+    public function registerSubscription(SubscriptionInterface $subscription)
+    {
+        $this->subscriptions[$subscription->getReference()] = $subscription;
     }
 }
