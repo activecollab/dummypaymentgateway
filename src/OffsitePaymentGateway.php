@@ -58,7 +58,6 @@ class OffsitePaymentGateway extends Gateway
      * Return order by order ID.
      *
      * @param string $reference
-     *
      * @return OrderInterface
      */
     public function getOrderByReference($reference)
@@ -74,7 +73,6 @@ class OffsitePaymentGateway extends Gateway
      * Return refund by refund ID.
      *
      * @param string $refund_reference
-     *
      * @return RefundInterface
      */
     public function getRefundByReference($refund_reference)
@@ -84,6 +82,21 @@ class OffsitePaymentGateway extends Gateway
         }
 
         throw new InvalidArgumentException("Refund #{$refund_reference} not found");
+    }
+
+    /**
+     * Return subscription by subscription ID.
+     *
+     * @param string $reference
+     * @return SubscriptionInterface
+     */
+    public function getSubscriptionByReference($reference)
+    {
+        if (isset($this->subscriptions[$reference])) {
+            return $this->subscriptions[$reference];
+        }
+
+        throw new InvalidArgumentException("Subscription #{$reference} not found");
     }
 
     /**
