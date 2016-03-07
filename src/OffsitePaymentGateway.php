@@ -24,6 +24,7 @@ use ActiveCollab\Payments\Subscription\SubscriptionInterface;
 use InvalidArgumentException;
 
 /**
+ * @package ActiveCollab\DummyPaymentGateway
  */
 class OffsitePaymentGateway extends Gateway
 {
@@ -61,25 +62,19 @@ class OffsitePaymentGateway extends Gateway
     }
 
     /**
-     * Return order by order ID.
-     *
-     * @param  string         $reference
-     * @return OrderInterface
+     * {@inheritdoc}
      */
-    public function getOrderByReference($reference)
+    public function getOrderByReference($order_reference)
     {
-        if (isset($this->orders[$reference])) {
-            return $this->orders[$reference];
+        if (isset($this->orders[$order_reference])) {
+            return $this->orders[$order_reference];
         }
 
-        throw new InvalidArgumentException("Order #{$reference} not found");
+        throw new InvalidArgumentException("Order #{$order_reference} not found");
     }
 
     /**
-     * Return refund by refund ID.
-     *
-     * @param  string          $refund_reference
-     * @return RefundInterface
+     * {@inheritdoc}
      */
     public function getRefundByReference($refund_reference)
     {
@@ -91,18 +86,15 @@ class OffsitePaymentGateway extends Gateway
     }
 
     /**
-     * Return subscription by subscription ID.
-     *
-     * @param  string                $reference
-     * @return SubscriptionInterface
+     * {@inheritdoc}
      */
-    public function getSubscriptionByReference($reference)
+    public function getSubscriptionByReference($subscription_reference)
     {
-        if (isset($this->subscriptions[$reference])) {
-            return $this->subscriptions[$reference];
+        if (isset($this->subscriptions[$subscription_reference])) {
+            return $this->subscriptions[$subscription_reference];
         }
 
-        throw new InvalidArgumentException("Subscription #{$reference} not found");
+        throw new InvalidArgumentException("Subscription #{$subscription_reference} not found");
     }
 
     /**
