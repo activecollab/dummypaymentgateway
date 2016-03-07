@@ -1,15 +1,21 @@
 <?php
 
+/*
+ * This file is part of the Active Collab Dummy Payment Gateway project.
+ *
+ * (c) A51 doo <info@activecollab.com>. All rights reserved.
+ */
+
 namespace ActiveCollab\DummyPaymentGateway;
 
 use ActiveCollab\DateValue\DateTimeValue;
+use ActiveCollab\DateValue\DateTimeValueInterface;
 use ActiveCollab\Payments\Dispatcher\DispatcherInterface;
 use ActiveCollab\Payments\Gateway\Gateway;
 use ActiveCollab\Payments\Order\OrderInterface;
-use ActiveCollab\Payments\Order\Refund\RefundInterface;
 use ActiveCollab\Payments\Order\Refund\Refund;
+use ActiveCollab\Payments\Order\Refund\RefundInterface;
 use ActiveCollab\Payments\OrderItem\OrderItemInterface;
-use ActiveCollab\DateValue\DateTimeValueInterface;
 use ActiveCollab\Payments\Subscription\Cancelation\Cancelation;
 use ActiveCollab\Payments\Subscription\Change\Change;
 use ActiveCollab\Payments\Subscription\FailedPayment\FailedPayment;
@@ -57,7 +63,7 @@ class OffsitePaymentGateway extends Gateway
     /**
      * Return order by order ID.
      *
-     * @param string $reference
+     * @param  string         $reference
      * @return OrderInterface
      */
     public function getOrderByReference($reference)
@@ -72,7 +78,7 @@ class OffsitePaymentGateway extends Gateway
     /**
      * Return refund by refund ID.
      *
-     * @param string $refund_reference
+     * @param  string          $refund_reference
      * @return RefundInterface
      */
     public function getRefundByReference($refund_reference)
@@ -87,7 +93,7 @@ class OffsitePaymentGateway extends Gateway
     /**
      * Return subscription by subscription ID.
      *
-     * @param string $reference
+     * @param  string                $reference
      * @return SubscriptionInterface
      */
     public function getSubscriptionByReference($reference)
