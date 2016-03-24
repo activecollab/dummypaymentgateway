@@ -11,9 +11,9 @@ namespace ActiveCollab\DummyPaymentGateway;
 use ActiveCollab\DateValue\DateTimeValue;
 use ActiveCollab\DateValue\DateTimeValueInterface;
 use ActiveCollab\Payments\Dispatcher\DispatcherInterface;
-use ActiveCollab\Payments\Gateway\Gateway;
+use ActiveCollab\Payments\Gateway\GatewayInterface;
+use ActiveCollab\Payments\Gateway\GatewayInterface\Implementation as GatewayInterfaceImplementation;
 use ActiveCollab\Payments\Order\OrderInterface;
-use ActiveCollab\Payments\Order\Refund\Refund;
 use ActiveCollab\Payments\Order\Refund\RefundInterface;
 use ActiveCollab\Payments\OrderItem\OrderItemInterface;
 use ActiveCollab\Payments\Subscription\Cancelation\Cancelation;
@@ -21,13 +21,16 @@ use ActiveCollab\Payments\Subscription\Change\Change;
 use ActiveCollab\Payments\Subscription\FailedPayment\FailedPayment;
 use ActiveCollab\Payments\Subscription\Rebill\Rebill;
 use ActiveCollab\Payments\Subscription\SubscriptionInterface;
+use ActiveCollab\Payments\Test\Fixtures\Refund;
 use InvalidArgumentException;
 
 /**
  * @package ActiveCollab\DummyPaymentGateway
  */
-class OffsitePaymentGateway extends Gateway
+class OffsitePaymentGateway implements GatewayInterface
 {
+    use GatewayInterfaceImplementation;
+
     /**
      * @var OrderInterface[]
      */
