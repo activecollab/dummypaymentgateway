@@ -91,7 +91,7 @@ class OffsitePaymentGateway implements GatewayInterface
      * @param  string                   $customer_id
      * @return PaymentMethodInterface[]
      */
-    public function getPaymentMethods(string $customer_id): array
+    public function getPaymentMethods(string $customer_id)
     {
         return [];
     }

@@ -60,12 +60,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/activecollab/payments.git",
-                "reference": "bee3e6c021d429a68fbad1a00d0731e3dd50b838"
+                "reference": "2282faf8507f2399f8830a9ef672c13569c35459"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/activecollab/payments/zipball/bee3e6c021d429a68fbad1a00d0731e3dd50b838",
-                "reference": "bee3e6c021d429a68fbad1a00d0731e3dd50b838",
+                "url": "https://api.github.com/repos/activecollab/payments/zipball/2282faf8507f2399f8830a9ef672c13569c35459",
+                "reference": "2282faf8507f2399f8830a9ef672c13569c35459",
                 "shasum": ""
             },
             "require": {
@@ -100,7 +100,7 @@
                 "activecollab",
                 "payments"
             ],
-            "time": "2016-03-25 16:00:17"
+            "time": "2016-03-25 18:55:57"
         },
         {
             "name": "activecollab/user",
