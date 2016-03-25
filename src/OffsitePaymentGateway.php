@@ -26,6 +26,7 @@ use ActiveCollab\Payments\Subscription\SubscriptionInterface;
 use ActiveCollab\Payments\Test\Fixtures\Refund;
 use ActiveCollab\Payments\Test\Fixtures\Subscription;
 use InvalidArgumentException;
+use BadMethodCallException;
 
 /**
  * @package ActiveCollab\DummyPaymentGateway
@@ -58,13 +59,53 @@ class OffsitePaymentGateway implements GatewayInterface
     }
 
     /**
-     * Return gateway identifier.
-     *
-     * @return string
+     * {@inheritdoc}
      */
     public function getIdentifier(): string
     {
         return 'dopg'; // Dummy Offsite Payment Gateway
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getOurReference(): string
+    {
+        return $this->getIdentifier();
+    }
+
+    /**
+     * Return default payment method for the given customer.
+     *
+     * @param  string                      $customer_id
+     * @return PaymentMethodInterface|null
+     */
+    public function getDefaultPaymentMethod(string $customer_id)
+    {
+        return null;
+    }
+
+    /**
+     * Return an array of payment methods that we have stored for the given customer.
+     *
+     * @param  string                   $customer_id
+     * @return PaymentMethodInterface[]
+     */
+    public function getPaymentMethods(string $customer_id): array
+    {
+        return [];
+    }
+
+    /**
+     * Create a payment method for the given customer and return the instance.
+     *
+     * @param  string                 $customer_id
+     * @param  array                  $arguments
+     * @return PaymentMethodInterface
+     */
+    public function createPaymentMethod(string $customer_id, ...$arguments): PaymentMethodInterface
+    {
+        throw new BadMethodCallException(__METHOD__ . ' is not implemented yet');
     }
 
     /**
