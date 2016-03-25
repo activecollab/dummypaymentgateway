@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "3c41d2fa493fa934f597591697435b8b",
-    "content-hash": "f141b7392ed0807aa476f50b940846d0",
+    "hash": "5318c3cd8d54e369f1f9a1f47e043c9b",
+    "content-hash": "d03954c836ffe0d0d86f288a1f402d5e",
     "packages": [
         {
             "name": "activecollab/datevalue",
@@ -59,14 +59,8 @@
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/activecollab/payments.git",
-                "reference": "fdd99d0f418c1e0490e4420be69d0dcfdc7328c1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/activecollab/payments/zipball/fdd99d0f418c1e0490e4420be69d0dcfdc7328c1",
-                "reference": "fdd99d0f418c1e0490e4420be69d0dcfdc7328c1",
-                "shasum": ""
+                "url": "/Users/ilija/Projects/Components/Payments",
+                "reference": "908933801be39cf3330bebd2c6a0393d5abf63d5"
             },
             "require": {
                 "activecollab/datevalue": "~1.0.0",
@@ -84,7 +78,6 @@
                     "ActiveCollab\\Payments\\Test\\": "test/src"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -100,7 +93,7 @@
                 "activecollab",
                 "payments"
             ],
-            "time": "2016-03-25 21:03:28"
+            "time": "2016-03-25 21:36:42"
         },
         {
             "name": "activecollab/user",
