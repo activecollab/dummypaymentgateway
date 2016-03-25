@@ -75,10 +75,7 @@ class OffsitePaymentGateway implements GatewayInterface
     }
 
     /**
-     * Return default payment method for the given customer.
-     *
-     * @param  string                      $customer_id
-     * @return PaymentMethodInterface|null
+     * {@inheritdoc}
      */
     public function getDefaultPaymentMethod(string $customer_id)
     {
@@ -86,24 +83,17 @@ class OffsitePaymentGateway implements GatewayInterface
     }
 
     /**
-     * Return an array of payment methods that we have stored for the given customer.
-     *
-     * @param  string                   $customer_id
-     * @return PaymentMethodInterface[]
+     * {@inheritdoc}
      */
-    public function getPaymentMethods(string $customer_id)
+    public function listPaymentMethods(string $customer_id): array
     {
         return [];
     }
 
     /**
-     * Create a payment method for the given customer and return the instance.
-     *
-     * @param  string                 $customer_id
-     * @param  array                  $arguments
-     * @return PaymentMethodInterface
+     * {@inheritdoc}
      */
-    public function createPaymentMethod(string $customer_id, ...$arguments): PaymentMethodInterface
+    public function addPaymentMethod(string $customer_id, ...$arguments): PaymentMethodInterface
     {
         throw new BadMethodCallException(__METHOD__ . ' is not implemented yet');
     }
