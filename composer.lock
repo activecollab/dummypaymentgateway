@@ -60,7 +60,7 @@
             "source": {
                 "type": "git",
                 "url": "/Users/ilija/Projects/Components/Payments",
-                "reference": "67ff1cecc321fefe634950ebe705072f144dfaca"
+                "reference": "45250bb842610ebb0c900b69467dfcb597f78ba7"
             },
             "require": {
                 "activecollab/datevalue": "~1.0.0",
@@ -93,7 +93,7 @@
                 "activecollab",
                 "payments"
             ],
-            "time": "2016-03-25 21:50:30"
+            "time": "2016-03-27 20:17:56"
         },
         {
             "name": "activecollab/user",
