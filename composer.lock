@@ -4,21 +4,21 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "3c41d2fa493fa934f597591697435b8b",
-    "content-hash": "f141b7392ed0807aa476f50b940846d0",
+    "hash": "76d83b94e058effe423acc39982e65f1",
+    "content-hash": "e9b1f99ec52418306371b32e1858ff54",
     "packages": [
         {
             "name": "activecollab/datevalue",
-            "version": "1.0.0",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/activecollab/datevalue.git",
-                "reference": "1c2a1d7b2704315d8cb0462f7a9dbd9bf5eb9ba4"
+                "reference": "c7b0af1ca57e82a529368a0038c79fbe015d07a3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/activecollab/datevalue/zipball/1c2a1d7b2704315d8cb0462f7a9dbd9bf5eb9ba4",
-                "reference": "1c2a1d7b2704315d8cb0462f7a9dbd9bf5eb9ba4",
+                "url": "https://api.github.com/repos/activecollab/datevalue/zipball/c7b0af1ca57e82a529368a0038c79fbe015d07a3",
+                "reference": "c7b0af1ca57e82a529368a0038c79fbe015d07a3",
                 "shasum": ""
             },
             "require": {
@@ -52,25 +52,75 @@
                 "date",
                 "datetime"
             ],
-            "time": "2015-11-26 14:01:05"
+            "time": "2016-04-26 07:51:26"
         },
         {
-            "name": "activecollab/payments",
-            "version": "dev-master",
+            "name": "activecollab/humannameparser",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/activecollab/payments.git",
-                "reference": "d7ee8629f5b42f8ae9c81a27fc0e63579e2c1494"
+                "url": "https://github.com/activecollab/humannameparser.git",
+                "reference": "5278cbf85eb26b47ebfe49c930f8cb18752c61cb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/activecollab/payments/zipball/d7ee8629f5b42f8ae9c81a27fc0e63579e2c1494",
-                "reference": "d7ee8629f5b42f8ae9c81a27fc0e63579e2c1494",
+                "url": "https://api.github.com/repos/activecollab/humannameparser/zipball/5278cbf85eb26b47ebfe49c930f8cb18752c61cb",
+                "reference": "5278cbf85eb26b47ebfe49c930f8cb18752c61cb",
                 "shasum": ""
             },
             "require": {
-                "activecollab/datevalue": "~1.0.0",
-                "activecollab/user": "~1.0.0",
+                "php": ">=5.6.0"
+            },
+            "require-dev": {
+                "fabpot/php-cs-fixer": "^1.0",
+                "phpunit/phpunit": "^5.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "ActiveCollab\\HumanNameParser\\": "src",
+                    "ActiveCollab\\HumanNameParser\\Test\\": "test/src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jason Priem",
+                    "email": "jason@jasonpriem.com"
+                },
+                {
+                    "name": "Ilija Studen",
+                    "email": "ilija.studen@activecollab.com"
+                }
+            ],
+            "description": "Takes human names of arbitrary complexity and various formats leading initial, first name, last name, middle name, nicknames etc",
+            "homepage": "https://labs.activecollab.com",
+            "keywords": [
+                "name",
+                "parse"
+            ],
+            "time": "2016-05-07 19:39:35"
+        },
+        {
+            "name": "activecollab/payments",
+            "version": "0.10.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/activecollab/payments.git",
+                "reference": "2a5b251c884e12c5bd9dc9423f1ad54e881f2ebf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/activecollab/payments/zipball/2a5b251c884e12c5bd9dc9423f1ad54e881f2ebf",
+                "reference": "2a5b251c884e12c5bd9dc9423f1ad54e881f2ebf",
+                "shasum": ""
+            },
+            "require": {
+                "activecollab/datevalue": "^1.0.0",
+                "activecollab/user": "^1.1.0",
                 "php": ">=7.0.0"
             },
             "require-dev": {
@@ -100,28 +150,28 @@
                 "activecollab",
                 "payments"
             ],
-            "time": "2016-03-28 11:09:02"
+            "time": "2016-05-07 20:57:24"
         },
         {
             "name": "activecollab/user",
-            "version": "1.0.1",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/activecollab/user.git",
-                "reference": "23e8ceb3771d7a88fb22039050a87627b7e2396c"
+                "reference": "51805a0b48e50992e66e484f84aa0e46bc3ee141"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/activecollab/user/zipball/23e8ceb3771d7a88fb22039050a87627b7e2396c",
-                "reference": "23e8ceb3771d7a88fb22039050a87627b7e2396c",
+                "url": "https://api.github.com/repos/activecollab/user/zipball/51805a0b48e50992e66e484f84aa0e46bc3ee141",
+                "reference": "51805a0b48e50992e66e484f84aa0e46bc3ee141",
                 "shasum": ""
             },
             "require": {
-                "jasonpriem/human-name-parser": "dev-master",
+                "activecollab/humannameparser": "^1.0.0",
                 "php": ">=5.6.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "~4.8"
+                "phpunit/phpunit": "^5.0"
             },
             "type": "library",
             "autoload": {
@@ -145,32 +195,7 @@
             "keywords": [
                 "activecollab"
             ],
-            "time": "2015-10-15 15:25:14"
-        },
-        {
-            "name": "jasonpriem/human-name-parser",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/jasonpriem/HumanNameParser.php.git",
-                "reference": "da339cc2bc17ac19202a6cdd78c9f9f17aae2724"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/jasonpriem/HumanNameParser.php/zipball/da339cc2bc17ac19202a6cdd78c9f9f17aae2724",
-                "reference": "da339cc2bc17ac19202a6cdd78c9f9f17aae2724",
-                "shasum": ""
-            },
-            "type": "library",
-            "autoload": {
-                "classmap": [
-                    "Name.php",
-                    "Parser.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "description": "Takes human names of arbitrary complexity and various wacky formats and parses them out.",
-            "time": "2015-05-07 03:41:34"
+            "time": "2016-05-07 20:02:54"
         },
         {
             "name": "nesbot/carbon",
@@ -280,7 +305,7 @@
         },
         {
             "name": "symfony/translation",
-            "version": "v3.0.4",
+            "version": "v3.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/translation.git",
@@ -454,16 +479,16 @@
         },
         {
             "name": "myclabs/deep-copy",
-            "version": "1.5.0",
+            "version": "1.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/myclabs/DeepCopy.git",
-                "reference": "e3abefcd7f106677fd352cd7c187d6c969aa9ddc"
+                "reference": "a8773992b362b58498eed24bf85005f363c34771"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/myclabs/DeepCopy/zipball/e3abefcd7f106677fd352cd7c187d6c969aa9ddc",
-                "reference": "e3abefcd7f106677fd352cd7c187d6c969aa9ddc",
+                "url": "https://api.github.com/repos/myclabs/DeepCopy/zipball/a8773992b362b58498eed24bf85005f363c34771",
+                "reference": "a8773992b362b58498eed24bf85005f363c34771",
                 "shasum": ""
             },
             "require": {
@@ -492,7 +517,7 @@
                 "object",
                 "object graph"
             ],
-            "time": "2015-11-07 22:20:37"
+            "time": "2015-11-20 12:04:31"
         },
         {
             "name": "phpdocumentor/reflection-docblock",
@@ -923,16 +948,16 @@
         },
         {
             "name": "phpunit/phpunit-mock-objects",
-            "version": "3.1.2",
+            "version": "3.1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit-mock-objects.git",
-                "reference": "7c34c9bdde4131b824086457a3145e27dba10ca1"
+                "reference": "151c96874bff6fe61a25039df60e776613a61489"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit-mock-objects/zipball/7c34c9bdde4131b824086457a3145e27dba10ca1",
-                "reference": "7c34c9bdde4131b824086457a3145e27dba10ca1",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit-mock-objects/zipball/151c96874bff6fe61a25039df60e776613a61489",
+                "reference": "151c96874bff6fe61a25039df60e776613a61489",
                 "shasum": ""
             },
             "require": {
@@ -975,7 +1000,7 @@
                 "mock",
                 "xunit"
             ],
-            "time": "2016-03-24 05:58:25"
+            "time": "2016-04-20 14:39:26"
         },
         {
             "name": "sebastian/code-unit-reverse-lookup",
@@ -1140,16 +1165,16 @@
         },
         {
             "name": "sebastian/environment",
-            "version": "1.3.5",
+            "version": "1.3.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/environment.git",
-                "reference": "dc7a29032cf72b54f36dac15a1ca5b3a1b6029bf"
+                "reference": "2292b116f43c272ff4328083096114f84ea46a56"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/environment/zipball/dc7a29032cf72b54f36dac15a1ca5b3a1b6029bf",
-                "reference": "dc7a29032cf72b54f36dac15a1ca5b3a1b6029bf",
+                "url": "https://api.github.com/repos/sebastianbergmann/environment/zipball/2292b116f43c272ff4328083096114f84ea46a56",
+                "reference": "2292b116f43c272ff4328083096114f84ea46a56",
                 "shasum": ""
             },
             "require": {
@@ -1186,7 +1211,7 @@
                 "environment",
                 "hhvm"
             ],
-            "time": "2016-02-26 18:40:46"
+            "time": "2016-05-04 07:59:13"
         },
         {
             "name": "sebastian/exporter",
@@ -1491,16 +1516,16 @@
         },
         {
             "name": "symfony/console",
-            "version": "v3.0.4",
+            "version": "v3.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "6b1175135bc2a74c08a28d89761272de8beed8cd"
+                "reference": "34a214710e0714b6efcf40ba3cd1e31373a97820"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/6b1175135bc2a74c08a28d89761272de8beed8cd",
-                "reference": "6b1175135bc2a74c08a28d89761272de8beed8cd",
+                "url": "https://api.github.com/repos/symfony/console/zipball/34a214710e0714b6efcf40ba3cd1e31373a97820",
+                "reference": "34a214710e0714b6efcf40ba3cd1e31373a97820",
                 "shasum": ""
             },
             "require": {
@@ -1547,20 +1572,20 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2016-03-16 17:00:50"
+            "time": "2016-04-28 09:48:42"
         },
         {
             "name": "symfony/event-dispatcher",
-            "version": "v3.0.4",
+            "version": "v3.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/event-dispatcher.git",
-                "reference": "9002dcf018d884d294b1ef20a6f968efc1128f39"
+                "reference": "17b04e6b1ede45b57d3ad5146abe50df6c3968b4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/9002dcf018d884d294b1ef20a6f968efc1128f39",
-                "reference": "9002dcf018d884d294b1ef20a6f968efc1128f39",
+                "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/17b04e6b1ede45b57d3ad5146abe50df6c3968b4",
+                "reference": "17b04e6b1ede45b57d3ad5146abe50df6c3968b4",
                 "shasum": ""
             },
             "require": {
@@ -1607,20 +1632,20 @@
             ],
             "description": "Symfony EventDispatcher Component",
             "homepage": "https://symfony.com",
-            "time": "2016-03-10 10:34:12"
+            "time": "2016-04-12 18:09:53"
         },
         {
             "name": "symfony/filesystem",
-            "version": "v3.0.4",
+            "version": "v3.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/filesystem.git",
-                "reference": "f82499a459dcade2ea56df94cc58b19c8bde3d20"
+                "reference": "74fec3511b62cb934b64bce1d96f06fffa4beafd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/filesystem/zipball/f82499a459dcade2ea56df94cc58b19c8bde3d20",
-                "reference": "f82499a459dcade2ea56df94cc58b19c8bde3d20",
+                "url": "https://api.github.com/repos/symfony/filesystem/zipball/74fec3511b62cb934b64bce1d96f06fffa4beafd",
+                "reference": "74fec3511b62cb934b64bce1d96f06fffa4beafd",
                 "shasum": ""
             },
             "require": {
@@ -1656,11 +1681,11 @@
             ],
             "description": "Symfony Filesystem Component",
             "homepage": "https://symfony.com",
-            "time": "2016-03-27 10:24:39"
+            "time": "2016-04-12 18:09:53"
         },
         {
             "name": "symfony/finder",
-            "version": "v3.0.4",
+            "version": "v3.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/finder.git",
@@ -1709,16 +1734,16 @@
         },
         {
             "name": "symfony/process",
-            "version": "v3.0.4",
+            "version": "v3.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/process.git",
-                "reference": "e6f1f98bbd355d209a992bfff45e7edfbd4a0776"
+                "reference": "53f9407c0bb1c5a79127db8f7bfe12f0f6f3dcdb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/process/zipball/e6f1f98bbd355d209a992bfff45e7edfbd4a0776",
-                "reference": "e6f1f98bbd355d209a992bfff45e7edfbd4a0776",
+                "url": "https://api.github.com/repos/symfony/process/zipball/53f9407c0bb1c5a79127db8f7bfe12f0f6f3dcdb",
+                "reference": "53f9407c0bb1c5a79127db8f7bfe12f0f6f3dcdb",
                 "shasum": ""
             },
             "require": {
@@ -1754,11 +1779,11 @@
             ],
             "description": "Symfony Process Component",
             "homepage": "https://symfony.com",
-            "time": "2016-03-30 10:41:14"
+            "time": "2016-04-14 15:30:28"
         },
         {
             "name": "symfony/stopwatch",
-            "version": "v3.0.4",
+            "version": "v3.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/stopwatch.git",
@@ -1807,7 +1832,7 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v3.0.4",
+            "version": "v3.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
@@ -1856,11 +1881,9 @@
         }
     ],
     "aliases": [],
-    "minimum-stability": "dev",
-    "stability-flags": {
-        "activecollab/payments": 20
-    },
-    "prefer-stable": true,
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
         "php": ">=7.0.0"
