@@ -25,8 +25,8 @@ use ActiveCollab\Payments\Subscription\Rebill\Rebill;
 use ActiveCollab\Payments\Subscription\SubscriptionInterface;
 use ActiveCollab\Payments\Test\Fixtures\Refund;
 use ActiveCollab\Payments\Test\Fixtures\Subscription;
-use InvalidArgumentException;
 use BadMethodCallException;
+use InvalidArgumentException;
 
 /**
  * @package ActiveCollab\DummyPaymentGateway
@@ -321,5 +321,21 @@ class OffsitePaymentGateway implements GatewayInterface
     public function registerSubscription(SubscriptionInterface $subscription)
     {
         $this->subscriptions[$subscription->getReference()] = $subscription;
+    }
+
+    /**
+     * Update an existing interface for the given customer, that ordered a given product using a given payment method.
+     *
+     * @param SubscriptionInterface  $subscription
+     * @param CustomerInterface      $customer
+     * @param PaymentMethodInterface $payment_method
+     * @param string                 $product_name
+     * @param string                 $period
+     * @param  array                  ...$arguments
+     * @return SubscriptionInterface
+     */
+    public function updateSubscription(SubscriptionInterface $subscription, CustomerInterface $customer, PaymentMethodInterface $payment_method, $product_name, string $period, ...$arguments): SubscriptionInterface
+    {
+        return $subscription;
     }
 }
