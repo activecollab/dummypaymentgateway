@@ -159,6 +159,22 @@ class OffsitePaymentGateway implements GatewayInterface
     }
 
     /**
+     * {@inheritdoc}
+     */
+    public function getAddOnIdByName(string $name): string
+    {
+        return $name;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getDiscountIdByName(string $name): string
+    {
+        return $name;
+    }
+
+    /**
      * Trigger product order completed.
      *
      * @param OrderInterface $order
