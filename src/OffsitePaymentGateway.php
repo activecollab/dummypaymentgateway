@@ -25,8 +25,8 @@ use ActiveCollab\Payments\Subscription\Rebill\Rebill;
 use ActiveCollab\Payments\Subscription\SubscriptionInterface;
 use ActiveCollab\Payments\Test\Fixtures\Refund;
 use ActiveCollab\Payments\Test\Fixtures\Subscription;
-use InvalidArgumentException;
 use BadMethodCallException;
+use InvalidArgumentException;
 
 /**
  * @package ActiveCollab\DummyPaymentGateway
@@ -156,6 +156,22 @@ class OffsitePaymentGateway implements GatewayInterface
     public function getProductIdByNameAndBillingPeriod(string $product_name, string $period = SubscriptionInterface::MONTHLY): string
     {
         return '';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getAddOnIdByName(string $name): string
+    {
+        return $name;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getDiscountIdByName(string $name): string
+    {
+        return $name;
     }
 
     /**
