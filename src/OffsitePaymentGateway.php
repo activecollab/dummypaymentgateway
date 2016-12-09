@@ -10,6 +10,7 @@ namespace ActiveCollab\DummyPaymentGateway;
 
 use ActiveCollab\DateValue\DateTimeValue;
 use ActiveCollab\DateValue\DateTimeValueInterface;
+use ActiveCollab\Payments\CommonOrder\CommonOrderInterface;
 use ActiveCollab\Payments\Customer\CustomerInterface;
 use ActiveCollab\Payments\Dispatcher\DispatcherInterface;
 use ActiveCollab\Payments\Gateway\GatewayInterface;
@@ -18,11 +19,13 @@ use ActiveCollab\Payments\Order\OrderInterface;
 use ActiveCollab\Payments\Order\Refund\RefundInterface;
 use ActiveCollab\Payments\OrderItem\OrderItemInterface;
 use ActiveCollab\Payments\PaymentMethod\PaymentMethodInterface;
+use ActiveCollab\Payments\PreOrder\PreOrderInterface;
 use ActiveCollab\Payments\Subscription\Cancelation\Cancelation;
 use ActiveCollab\Payments\Subscription\Change\Change;
 use ActiveCollab\Payments\Subscription\FailedPayment\FailedPayment;
 use ActiveCollab\Payments\Subscription\Rebill\Rebill;
 use ActiveCollab\Payments\Subscription\SubscriptionInterface;
+use ActiveCollab\Payments\Test\Fixtures\Customer;
 use ActiveCollab\Payments\Test\Fixtures\Refund;
 use ActiveCollab\Payments\Test\Fixtures\Subscription;
 use BadMethodCallException;
@@ -345,5 +348,27 @@ class OffsitePaymentGateway implements GatewayInterface
     public function registerSubscription(SubscriptionInterface $subscription)
     {
         $this->subscriptions[$subscription->getReference()] = $subscription;
+    }
+
+    /**
+     * Execute pre-order.
+     *
+     * @param  PreOrderInterface    $pre_order
+     * @return CommonOrderInterface
+     */
+    public function executePreOrder(PreOrderInterface $pre_order): CommonOrderInterface
+    {
+        return new Subscription(new Customer('Vladan Jovic', 'dummy@payment.net'), '2016-02-03', new DateTimeValue(), 'monthly', 'USD', 200, []);
+    }
+
+    /**
+     * Return if gateway can execute pre-order.
+     *
+     * @param  PreOrderInterface $pre_order
+     * @return bool
+     */
+    public function canExecutePreOrder(PreOrderInterface $pre_order): bool
+    {
+        return true;
     }
 }
