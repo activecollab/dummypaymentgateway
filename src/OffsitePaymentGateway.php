@@ -9,6 +9,7 @@
 namespace ActiveCollab\DummyPaymentGateway;
 
 use ActiveCollab\DateValue\DateTimeValue;
+use ActiveCollab\DateValue\DateValueInterface;
 use ActiveCollab\DateValue\DateTimeValueInterface;
 use ActiveCollab\Payments\CommonOrder\CommonOrderInterface;
 use ActiveCollab\Payments\Customer\CustomerInterface;
@@ -356,10 +357,10 @@ class OffsitePaymentGateway implements GatewayInterface
      * @param  PreOrderInterface      $pre_order
      * @param  PaymentMethodInterface $payment_method
      * @param  string                 $action
-     * @param  DateTimeValueInterface $first_billing_date
+     * @param  DateValueInterface $first_billing_date
      * @return CommonOrderInterface
      */
-    public function executePreOrder(PreOrderInterface $pre_order, PaymentMethodInterface $payment_method, string $action, DateTimeValueInterface $first_billing_date = null): CommonOrderInterface
+    public function executePreOrder(PreOrderInterface $pre_order, PaymentMethodInterface $payment_method, string $action, DateValueInterface $first_billing_date = null): CommonOrderInterface
     {
         return new Subscription(new Customer('Vladan Jovic', 'dummy@payment.net'), '2016-02-03', new DateTimeValue(), 'monthly', 'USD', 200, []);
     }
