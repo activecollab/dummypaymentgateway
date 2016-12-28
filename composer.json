@@ -15,12 +15,6 @@
             "email": "ilija.studen@activecollab.com"
         }
     ],
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "/Users/ilijastuden/Dropbox/Projects/Components/Payments"
-        }
-    ],
     "require": {
         "php": ">=7.0.0",
         "activecollab/datevalue": "^1.0",
