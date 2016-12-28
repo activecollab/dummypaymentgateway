@@ -15,10 +15,16 @@
             "email": "ilija.studen@activecollab.com"
         }
     ],
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "/Users/ilijastuden/Dropbox/Projects/Components/Payments"
+        }
+    ],
     "require": {
         "php": ">=7.0.0",
         "activecollab/datevalue": "^1.0",
-        "activecollab/payments": "^0.10"
+        "activecollab/payments": "v1.0.x-dev"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^1.0",
