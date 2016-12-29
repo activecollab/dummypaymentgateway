@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Active Collab Payments project.
+ * This file is part of the Active Collab Dummy Payment Gateway project.
  *
  * (c) A51 doo <info@activecollab.com>. All rights reserved.
  */
@@ -11,9 +11,9 @@ declare(strict_types=1);
 namespace ActiveCollab\DummyPaymentGateway;
 
 use ActiveCollab\DateValue\DateTimeValueInterface;
+use ActiveCollab\DummyPaymentGateway\Traits\CommonOrder;
 use ActiveCollab\Payments\Customer\CustomerInterface;
 use ActiveCollab\Payments\Order\OrderInterface;
-use ActiveCollab\Payments\Test\Fixtures\Traits\CommonOrder;
 
 /**
  * @package ActiveCollab\Payments\Order

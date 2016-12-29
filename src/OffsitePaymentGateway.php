@@ -11,22 +11,19 @@ declare(strict_types=1);
 namespace ActiveCollab\DummyPaymentGateway;
 
 use ActiveCollab\DateValue\DateTimeValue;
-use ActiveCollab\DateValue\DateValueInterface;
 use ActiveCollab\DateValue\DateTimeValueInterface;
+use ActiveCollab\DateValue\DateValueInterface;
+use ActiveCollab\Payments\Common\Traits\GatewayedObject;
 use ActiveCollab\Payments\CommonOrder\CommonOrderInterface;
 use ActiveCollab\Payments\Customer\CustomerInterface;
 use ActiveCollab\Payments\Dispatcher\DispatcherInterface;
 use ActiveCollab\Payments\Gateway\GatewayInterface;
-use ActiveCollab\Payments\Common\Traits\GatewayedObject;
 use ActiveCollab\Payments\Order\OrderInterface;
 use ActiveCollab\Payments\Order\Refund\RefundInterface;
 use ActiveCollab\Payments\OrderItem\OrderItemInterface;
 use ActiveCollab\Payments\PaymentMethod\PaymentMethodInterface;
 use ActiveCollab\Payments\PreOrder\PreOrderInterface;
 use ActiveCollab\Payments\Subscription\SubscriptionInterface;
-use ActiveCollab\Payments\Test\Fixtures\Customer;
-use ActiveCollab\Payments\Test\Fixtures\Refund;
-use ActiveCollab\Payments\Test\Fixtures\Subscription;
 use BadMethodCallException;
 use InvalidArgumentException;
 
@@ -260,7 +257,10 @@ class OffsitePaymentGateway implements GatewayInterface
      */
     public function triggerSubscriptionActivated(SubscriptionInterface $subscription)
     {
-        $subscription->setGateway($this);
+        if ($subscription instanceof Subscription) {
+            $subscription->setGatewayByReference($this);
+        }
+
         $this->registerSubscription($subscription);
 
         $this->getDispatcher()->triggerSubscriptionActivated($this, $subscription);
@@ -275,7 +275,10 @@ class OffsitePaymentGateway implements GatewayInterface
      */
     public function triggerSubscriptionRebilled(SubscriptionInterface $subscription, DateTimeValueInterface $timestamp = null, DateTimeValueInterface $next_billing_timestamp = null)
     {
-        $subscription->setGateway($this);
+        if ($subscription instanceof Subscription) {
+            $subscription->setGatewayByReference($this);
+        }
+
         $this->registerSubscription($subscription);
 
         if (empty($timestamp)) {
@@ -298,7 +301,10 @@ class OffsitePaymentGateway implements GatewayInterface
      */
     public function triggerSubscriptionChanged(SubscriptionInterface $subscription, DateTimeValueInterface $timestamp = null)
     {
-        $subscription->setGateway($this);
+        if ($subscription instanceof Subscription) {
+            $subscription->setGatewayByReference($this);
+        }
+
         $this->registerSubscription($subscription);
 
         if (empty($timestamp)) {
@@ -317,7 +323,10 @@ class OffsitePaymentGateway implements GatewayInterface
      */
     public function triggerSubscriptionDeactivated(SubscriptionInterface $subscription, DateTimeValueInterface $timestamp = null)
     {
-        $subscription->setGateway($this);
+        if ($subscription instanceof Subscription) {
+            $subscription->setGatewayByReference($this);
+        }
+
         $this->registerSubscription($subscription);
 
         if (empty($timestamp)) {
@@ -336,7 +345,10 @@ class OffsitePaymentGateway implements GatewayInterface
      */
     public function triggerSubscriptionFailedPayment(SubscriptionInterface $subscription, DateTimeValueInterface $timestamp = null)
     {
-        $subscription->setGateway($this);
+        if ($subscription instanceof Subscription) {
+            $subscription->setGatewayByReference($this);
+        }
+
         $this->registerSubscription($subscription);
 
         if (empty($timestamp)) {
@@ -363,7 +375,7 @@ class OffsitePaymentGateway implements GatewayInterface
      * @param  PreOrderInterface      $pre_order
      * @param  PaymentMethodInterface $payment_method
      * @param  string                 $action
-     * @param  DateValueInterface $first_billing_date
+     * @param  DateValueInterface     $first_billing_date
      * @return CommonOrderInterface
      */
     public function executePreOrder(PreOrderInterface $pre_order, PaymentMethodInterface $payment_method, string $action, DateValueInterface $first_billing_date = null): CommonOrderInterface
