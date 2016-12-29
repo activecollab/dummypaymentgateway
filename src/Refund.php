@@ -68,7 +68,10 @@ class Refund implements RefundInterface
         $this->order_reference = $order_reference;
         $this->setTimestamp($timestamp);
         $this->total = (float) $total;
-        $this->setGatewayByReference($gateway);
+
+        if ($gateway) {
+            $this->setGatewayByReference($gateway);
+        }
     }
 
     /**

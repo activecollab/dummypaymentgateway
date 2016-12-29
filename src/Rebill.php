@@ -39,7 +39,10 @@ class Rebill implements RebillInterface
         $this->setSubscriptionReference($subscription_reference);
         $this->setTimestamp($timestamp);
         $this->next_billing_timestamp = $next_billing_timestamp;
-        $this->setGatewayByReference($gateway);
+
+        if ($gateway) {
+            $this->setGatewayByReference($gateway);
+        }
     }
 
     /**

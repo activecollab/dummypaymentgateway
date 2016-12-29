@@ -37,6 +37,9 @@ class FailedPayment implements FailedPaymentInterface
 
         $this->setSubscriptionReference($subscription_reference);
         $this->setTimestamp($timestamp);
-        $this->setGatewayByReference($gateway);
+
+        if ($gateway) {
+            $this->setGatewayByReference($gateway);
+        }
     }
 }

@@ -38,6 +38,9 @@ class Change implements ChangeInterface
 
         $this->setSubscriptionReference($subscription_reference);
         $this->setTimestamp($timestamp);
-        $this->setGatewayByReference($gateway);
+
+        if ($gateway) {
+            $this->setGatewayByReference($gateway);
+        }
     }
 }
