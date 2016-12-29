@@ -19,9 +19,6 @@ use ActiveCollab\Payments\Gateway\GatewayInterface;
 use ActiveCollab\Payments\Subscription\Cancelation\CancelationInterface;
 use InvalidArgumentException;
 
-/**
- * @package ActiveCollab\Payments\Subscription\Cancelation
- */
 class Cancelation implements CancelationInterface
 {
     use GatewayedObject, TimestampedObject, InternallyIdentifiedObject, SubscriptionEvent;

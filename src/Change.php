@@ -19,9 +19,6 @@ use ActiveCollab\Payments\Gateway\GatewayInterface;
 use ActiveCollab\Payments\Subscription\Change\ChangeInterface;
 use InvalidArgumentException;
 
-/**
- * @package ActiveCollab\Payments\Subscription\Change
- */
 class Change implements ChangeInterface
 {
     use GatewayedObject, TimestampedObject, InternallyIdentifiedObject, SubscriptionEvent;

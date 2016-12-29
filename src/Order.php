@@ -15,9 +15,6 @@ use ActiveCollab\DummyPaymentGateway\Traits\CommonOrder;
 use ActiveCollab\Payments\Customer\CustomerInterface;
 use ActiveCollab\Payments\Order\OrderInterface;
 
-/**
- * @package ActiveCollab\Payments\Order
- */
 class Order implements OrderInterface
 {
     use CommonOrder;

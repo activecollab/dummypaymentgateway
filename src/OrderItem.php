@@ -12,9 +12,6 @@ namespace ActiveCollab\DummyPaymentGateway;
 
 use ActiveCollab\Payments\OrderItem\OrderItemInterface;
 
-/**
- * @package ActiveCollab\Payments\OrderItem
- */
 class OrderItem implements OrderItemInterface
 {
     /**

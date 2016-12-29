@@ -17,9 +17,6 @@ use ActiveCollab\Payments\PaymentMethod\PaymentMethodInterface;
 use ActiveCollab\User\IdentifiedVisitor;
 use BadMethodCallException;
 
-/**
- * @package ActiveCollab\Payments\Customer
- */
 class Customer extends IdentifiedVisitor implements CustomerInterface
 {
     /**

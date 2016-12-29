@@ -19,9 +19,6 @@ use ActiveCollab\Payments\Subscription\SubscriptionInterface;
 use Carbon\Carbon;
 use InvalidArgumentException;
 
-/**
- * @package ActiveCollab\Payments\Subscription
- */
 class Subscription implements SubscriptionInterface
 {
     use GatewayedObject, CommonOrder;

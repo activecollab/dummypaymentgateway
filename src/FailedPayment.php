@@ -18,9 +18,6 @@ use ActiveCollab\Payments\Gateway\GatewayInterface;
 use ActiveCollab\Payments\Subscription\FailedPayment\FailedPaymentInterface;
 use InvalidArgumentException;
 
-/**
- * @package ActiveCollab\Payments\Subscription\FailedPayment
- */
 class FailedPayment implements FailedPaymentInterface
 {
     use GatewayedObject, TimestampedObject, SubscriptionEvent;

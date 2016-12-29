@@ -27,9 +27,6 @@ use ActiveCollab\Payments\Subscription\SubscriptionInterface;
 use BadMethodCallException;
 use InvalidArgumentException;
 
-/**
- * @package ActiveCollab\DummyPaymentGateway
- */
 class OffsitePaymentGateway implements GatewayInterface
 {
     use GatewayedObject;

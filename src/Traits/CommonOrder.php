@@ -17,9 +17,6 @@ use ActiveCollab\Payments\Customer\CustomerInterface;
 use ActiveCollab\Payments\OrderItem\OrderItemInterface;
 use InvalidArgumentException;
 
-/**
- * @package ActiveCollab\Payments\CommonOrder\CommonOrderInterface
- */
 trait CommonOrder
 {
     use InternallyIdentifiedObject, ReferencedObject, TimestampedObject;

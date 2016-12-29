@@ -22,9 +22,6 @@ use ActiveCollab\Payments\OrderItem\OrderItemInterface;
 use InvalidArgumentException;
 use RuntimeException;
 
-/**
- * @package ActiveCollab\Payments\Refund
- */
 class Refund implements RefundInterface
 {
     use GatewayedObject, ReferencedObject, TimestampedObject, InternallyIdentifiedObject;

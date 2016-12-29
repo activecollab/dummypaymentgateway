@@ -18,9 +18,6 @@ use ActiveCollab\Payments\Gateway\GatewayInterface;
 use ActiveCollab\Payments\Subscription\Rebill\RebillInterface;
 use InvalidArgumentException;
 
-/**
- * @package ActiveCollab\Payments\Subscription\FailedPayment
- */
 class Rebill implements RebillInterface
 {
     use GatewayedObject, TimestampedObject, SubscriptionEvent;

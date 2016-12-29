@@ -14,9 +14,6 @@ use ActiveCollab\Payments\Gateway\GatewayInterface;
 use ActiveCollab\Payments\Subscription\SubscriptionInterface;
 use RuntimeException;
 
-/**
- * @package ActiveCollab\Payments\Subscription\SubscriptionEvent
- */
 trait SubscriptionEvent
 {
     /**
