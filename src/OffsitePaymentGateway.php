@@ -6,6 +6,8 @@
  * (c) A51 doo <info@activecollab.com>. All rights reserved.
  */
 
+declare(strict_types=1);
+
 namespace ActiveCollab\DummyPaymentGateway;
 
 use ActiveCollab\DateValue\DateTimeValue;
@@ -15,16 +17,12 @@ use ActiveCollab\Payments\CommonOrder\CommonOrderInterface;
 use ActiveCollab\Payments\Customer\CustomerInterface;
 use ActiveCollab\Payments\Dispatcher\DispatcherInterface;
 use ActiveCollab\Payments\Gateway\GatewayInterface;
-use ActiveCollab\Payments\Gateway\GatewayInterface\Implementation as GatewayInterfaceImplementation;
+use ActiveCollab\Payments\Common\Traits\GatewayedObject;
 use ActiveCollab\Payments\Order\OrderInterface;
 use ActiveCollab\Payments\Order\Refund\RefundInterface;
 use ActiveCollab\Payments\OrderItem\OrderItemInterface;
 use ActiveCollab\Payments\PaymentMethod\PaymentMethodInterface;
 use ActiveCollab\Payments\PreOrder\PreOrderInterface;
-use ActiveCollab\Payments\Subscription\Cancelation\Cancelation;
-use ActiveCollab\Payments\Subscription\Change\Change;
-use ActiveCollab\Payments\Subscription\FailedPayment\FailedPayment;
-use ActiveCollab\Payments\Subscription\Rebill\Rebill;
 use ActiveCollab\Payments\Subscription\SubscriptionInterface;
 use ActiveCollab\Payments\Test\Fixtures\Customer;
 use ActiveCollab\Payments\Test\Fixtures\Refund;
@@ -37,7 +35,9 @@ use InvalidArgumentException;
  */
 class OffsitePaymentGateway implements GatewayInterface
 {
-    use GatewayInterfaceImplementation;
+    use GatewayedObject;
+
+    private $dispatcher;
 
     /**
      * @var OrderInterface[]
@@ -57,9 +57,26 @@ class OffsitePaymentGateway implements GatewayInterface
     /**
      * @param \ActiveCollab\Payments\Dispatcher\DispatcherInterface $dispatcher
      */
-    public function __construct(DispatcherInterface &$dispatcher)
+    public function __construct(DispatcherInterface $dispatcher)
     {
         $this->setDispatcher($dispatcher);
+    }
+
+    /**
+     * Return dispatcher instance.
+     *
+     * @return DispatcherInterface
+     */
+    public function getDispatcher(): DispatcherInterface
+    {
+        return $this->dispatcher;
+    }
+
+    public function setDispatcher(DispatcherInterface $dispatcher)
+    {
+        $this->dispatcher = $dispatcher;
+
+        return $this;
     }
 
     /**
@@ -204,9 +221,7 @@ class OffsitePaymentGateway implements GatewayInterface
             $timestamp = new DateTimeValue();
         }
 
-        $refund = new Refund($order->getReference().'-X', $order->getReference(), $timestamp, $order->getTotal());
-        $refund->setGateway($this);
-
+        $refund = new Refund($order->getReference().'-X', $order->getReference(), $timestamp, $order->getTotal(), $this);
         $this->refunds[$refund->getReference()] = $refund;
 
         $this->getDispatcher()->triggerOrderRefunded($this, $order, $refund);
@@ -227,8 +242,7 @@ class OffsitePaymentGateway implements GatewayInterface
             $timestamp = new DateTimeValue();
         }
 
-        $refund = new Refund($order->getReference().'-X', $order->getReference(), $timestamp, 200);
-        $refund->setGateway($this);
+        $refund = new Refund($order->getReference().'-X', $order->getReference(), $timestamp, 200, $this);
 
         if (!empty($items)) {
             $refund->setItems($items);
@@ -272,9 +286,7 @@ class OffsitePaymentGateway implements GatewayInterface
             $next_billing_timestamp = $subscription->calculateNextBillingTimestamp($timestamp);
         }
 
-        $rebill = new Rebill($subscription->getReference(), $timestamp, $next_billing_timestamp);
-        $rebill->setGateway($this);
-
+        $rebill = new Rebill($subscription->getReference(), $timestamp, $next_billing_timestamp, $this);
         $this->getDispatcher()->triggerSubscriptionRebill($this, $subscription, $rebill);
     }
 
@@ -293,9 +305,7 @@ class OffsitePaymentGateway implements GatewayInterface
             $timestamp = new DateTimeValue();
         }
 
-        $change = new Change($subscription->getReference(), $timestamp);
-        $change->setGateway($this);
-
+        $change = new Change($subscription->getReference(), $timestamp, $this);
         $this->getDispatcher()->triggerSubscriptionChanged($this, $subscription, $change);
     }
 
@@ -314,9 +324,7 @@ class OffsitePaymentGateway implements GatewayInterface
             $timestamp = new DateTimeValue();
         }
 
-        $cancelation = new Cancelation($subscription->getReference(), $timestamp);
-        $cancelation->setGateway($this);
-
+        $cancelation = new Cancelation($subscription->getReference(), $timestamp, $this);
         $this->getDispatcher()->triggerSubscriptionDeactivated($this, $subscription, $cancelation);
     }
 
@@ -335,9 +343,7 @@ class OffsitePaymentGateway implements GatewayInterface
             $timestamp = new DateTimeValue();
         }
 
-        $failed_payment = new FailedPayment($subscription->getReference(), $timestamp);
-        $failed_payment->setGateway($this);
-
+        $failed_payment = new FailedPayment($subscription->getReference(), $timestamp, $this);
         $this->getDispatcher()->triggerSubscriptionPaymentFailed($this, $subscription, $failed_payment);
     }
 

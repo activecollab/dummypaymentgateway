@@ -9,21 +9,21 @@
 namespace ActiveCollab\Payments\Test;
 
 use ActiveCollab\DateValue\DateTimeValue;
+use ActiveCollab\DummyPaymentGateway\Customer;
 use ActiveCollab\DummyPaymentGateway\OffsitePaymentGateway;
+use ActiveCollab\DummyPaymentGateway\Order;
+use ActiveCollab\DummyPaymentGateway\OrderItem;
+use ActiveCollab\DummyPaymentGateway\Subscription;
 use ActiveCollab\Payments\Customer\CustomerInterface;
 use ActiveCollab\Payments\Dispatcher\DispatcherInterface;
 use ActiveCollab\Payments\Gateway\GatewayInterface;
 use ActiveCollab\Payments\Order\OrderInterface;
 use ActiveCollab\Payments\Order\Refund\RefundInterface;
-use ActiveCollab\Payments\OrderItem\OrderItem;
 use ActiveCollab\Payments\Subscription\Cancelation\CancelationInterface;
 use ActiveCollab\Payments\Subscription\Change\ChangeInterface;
 use ActiveCollab\Payments\Subscription\FailedPayment\FailedPaymentInterface;
 use ActiveCollab\Payments\Subscription\Rebill\RebillInterface;
 use ActiveCollab\Payments\Subscription\SubscriptionInterface;
-use ActiveCollab\Payments\Test\Fixtures\Customer;
-use ActiveCollab\Payments\Test\Fixtures\Order;
-use ActiveCollab\Payments\Test\Fixtures\Subscription;
 
 /**
  * @package ActiveCollab\Payments\Test
