@@ -16,7 +16,7 @@
         }
     ],
     "require": {
-        "php": ">=7.0.0",
+        "php": ">=7.1",
         "activecollab/datevalue": "^1.0",
         "activecollab/payments": "v1.0.x-dev"
     },
