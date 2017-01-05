@@ -13,6 +13,7 @@ namespace ActiveCollab\DummyPaymentGateway;
 use ActiveCollab\DateValue\DateTimeValueInterface;
 use ActiveCollab\DummyPaymentGateway\Traits\CommonOrder;
 use ActiveCollab\Payments\Customer\CustomerInterface;
+use ActiveCollab\Payments\Order\Calculator\Calculator;
 use ActiveCollab\Payments\Order\OrderInterface;
 
 class Order implements OrderInterface
@@ -26,22 +27,21 @@ class Order implements OrderInterface
      * @param string                 $reference
      * @param DateTimeValueInterface $timestamp
      * @param string                 $currency
-     * @param float                  $total
      * @param array                  $items
      */
-    public function __construct(CustomerInterface $customer, $reference, DateTimeValueInterface $timestamp, $currency, $total, array $items)
+    public function __construct(CustomerInterface $customer, $reference, DateTimeValueInterface $timestamp, $currency, array $items)
     {
         $this->validateCustomer($customer);
         $this->validateOrderId($reference);
         $this->validateCurrency($currency);
-        $this->validateTotal($total);
         $this->validateItems($items);
 
         $this->customer = $customer;
         $this->reference = $reference;
         $this->setTimestamp($timestamp);
         $this->currency = $currency;
-        $this->total = (float) $total;
         $this->items = $items;
+
+        $this->calculation = (new Calculator())->calculate($this, 2);
     }
 }

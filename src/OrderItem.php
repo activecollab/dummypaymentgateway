@@ -10,58 +10,145 @@ declare(strict_types=1);
 
 namespace ActiveCollab\DummyPaymentGateway;
 
+use ActiveCollab\Payments\Discount\DiscountInterface;
+use ActiveCollab\Payments\Order\OrderInterface;
+use ActiveCollab\Payments\OrderItem\Calculator\CalculationInterface;
+use ActiveCollab\Payments\OrderItem\Calculator\Calculator;
 use ActiveCollab\Payments\OrderItem\OrderItemInterface;
+use InvalidArgumentException;
+use LogicException;
 
 class OrderItem implements OrderItemInterface
 {
     /**
-     * @var string
+     * @var OrderInterface
      */
-    public $description;
+    private $order;
 
     /**
-     * @var float|int
+     * @var DiscountInterface|null
      */
-    private $quantity = 1;
+    private $discount;
 
-    /**
-     * @var float
-     */
-    private $unit_cost = 0.0;
+    private $description;
+    private $quantity;
+    private $unit_cost;
+    private $first_tax_rate;
+    private $second_tax_rate;
+    private $second_tax_is_compound;
 
-    /**
-     * @param string    $description
-     * @param float|int $quantity
-     * @param float     $unit_cost
-     */
-    public function __construct($description, $quantity, $unit_cost)
+    public function __construct(string $description, float $quantity, float $unit_cost, float $first_tax_rate = null, float $second_tax_rate = null, bool $second_tax_is_compound = null)
     {
-        $this->description = trim($description);
+        if (empty($description)) {
+            throw new InvalidArgumentException('Discount is required.');
+        }
+
+        if ($quantity <= 0) {
+            throw new InvalidArgumentException('Quantity is required.');
+        }
+
+        if ($unit_cost <= 0) {
+            throw new InvalidArgumentException('Unit cost is required.');
+        }
+
+        $this->description = $description;
         $this->quantity = $quantity;
         $this->unit_cost = $unit_cost;
+        $this->first_tax_rate = $first_tax_rate;
+        $this->second_tax_rate = $second_tax_rate;
+        $this->second_tax_is_compound = $second_tax_is_compound;
     }
 
-    /**
-     * @return string
-     */
-    public function getDescription()
+    public function getOrder(): OrderInterface
+    {
+        if (empty($this->order)) {
+            throw new LogicException("Order can't be accessed prior to being set.");
+        }
+
+        return $this->order;
+    }
+
+    public function &setOrder(OrderInterface $order = null): OrderItemInterface
+    {
+        $this->order = $order;
+
+        return $this;
+    }
+
+    public function getDiscount(): ?DiscountInterface
+    {
+        return $this->discount;
+    }
+
+    public function &setDiscount(DiscountInterface $discount = null): OrderItemInterface
+    {
+        $this->discount = $discount;
+
+        return $this;
+    }
+
+    public function getDescription(): string
     {
         return $this->description;
     }
 
-    /**
-     * @return float|int
-     */
-    public function getQuantity()
+    public function getQuantity(): float
     {
         return $this->quantity;
     }
 
-    /**
-     * @return float
-     */
-    public function getUnitCost()
+    public function getUnitCost(): float
     {
         return $this->unit_cost;
+    }
+
+    public function getFirstTaxRate(): ?float
+    {
+        return $this->first_tax_rate;
+    }
+
+    public function getSecondTaxRate(): ?float
+    {
+        return $this->second_tax_rate;
+    }
+
+    public function getSecondTaxIsCompound(): ?bool
+    {
+        return $this->second_tax_is_compound;
+    }
+
+    public function getSubtotalAmount(): float
+    {
+        return $this->calculateAmounts()->getSubtotal();
+    }
+
+    public function getDiscountAmount(): float
+    {
+        return $this->calculateAmounts()->getDiscount();
+    }
+
+    public function getFirstTaxAmount(): float
+    {
+        return $this->calculateAmounts()->getFirstTax();
+    }
+
+    public function getSecondTaxAmount(): float
+    {
+        return $this->calculateAmounts()->getSecondTax();
+    }
+
+    public function getTaxAmount(): float
+    {
+        return $this->calculateAmounts()->getTax();
+    }
+
+    public function getTotalAmount(): float
+    {
+        return $this->calculateAmounts()->getTotal();
+    }
+
+    public function calculateAmounts(bool $bulk = false): CalculationInterface
+    {
+        return (new Calculator())->calculate($this, 2);
     }
 }

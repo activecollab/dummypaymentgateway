@@ -65,12 +65,12 @@ class OffsitePaymentGatewayTest extends TestCase
         $this->gateway = new OffsitePaymentGateway($this->dispatcher);
         $this->customer = new Customer('John Doe', 'john@example.com');
         $this->timestamp = new DateTimeValue('2015-10-15');
-        $this->order = new Order($this->customer, '2015-01', $this->timestamp, 'USD', 1200, [
+        $this->order = new Order($this->customer, '2015-01', $this->timestamp, 'USD', [
             new OrderItem('Expensive product', 1, 1000),
             new OrderItem('Not so expensive product', 2, 100),
         ]);
 
-        $this->subscription = new Subscription($this->customer, '2015-01', $this->timestamp, SubscriptionInterface::MONTHLY, 'USD', 25, [
+        $this->subscription = new Subscription($this->customer, '2015-01', $this->timestamp, SubscriptionInterface::MONTHLY, 'USD', [
             new OrderItem('Monthly SaaS cost', 1, 25),
         ]);
     }
@@ -126,7 +126,7 @@ class OffsitePaymentGatewayTest extends TestCase
             $this->assertInstanceOf(OrderInterface::class, $order);
 
             $this->assertEquals($refund->getOrderReference(), $order->getReference());
-            $this->assertEquals($refund->getTotal(), $order->getTotal());
+            $this->assertEquals($refund->getTotal(), $order->getTotalAmount());
 
             $this->assertFalse($refund->isPartial());
 
@@ -150,7 +150,7 @@ class OffsitePaymentGatewayTest extends TestCase
             $this->assertInstanceOf(OrderInterface::class, $order);
 
             $this->assertEquals($refund->getOrderReference(), $order->getReference());
-            $this->assertGreaterThan($refund->getTotal(), $order->getTotal());
+            $this->assertGreaterThan($refund->getTotal(), $order->getTotalAmount());
 
             $this->assertInternalType('array', $refund->getItems());
             $this->assertCount(1, $refund->getItems());

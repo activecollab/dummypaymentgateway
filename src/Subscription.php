@@ -31,24 +31,21 @@ class Subscription implements SubscriptionInterface
      * @param DateTimeValueInterface $timestamp
      * @param string                 $period
      * @param string                 $currency
-     * @param float                  $total
      * @param array                  $items
      */
-    public function __construct(CustomerInterface $customer, $reference, DateTimeValueInterface $timestamp, $period, $currency, $total, array $items)
+    public function __construct(CustomerInterface $customer, $reference, DateTimeValueInterface $timestamp, $period, $currency, array $items)
     {
         $this->validateCustomer($customer);
         $this->validateOrderId($reference);
-        $this->validatePeriod($period);
+        $this->validateBillingPeriod($period);
         $this->validateCurrency($currency);
-        $this->validateTotal($total);
         $this->validateItems($items);
 
         $this->customer = $customer;
         $this->setReference($reference);
         $this->setTimestamp($timestamp);
-        $this->period = $period;
+        $this->billing_period = $period;
         $this->currency = $currency;
-        $this->total = (float) $total;
         $this->items = $items;
     }
 
@@ -60,16 +57,16 @@ class Subscription implements SubscriptionInterface
     /**
      * @var string
      */
-    private $period;
+    private $billing_period;
 
     /**
      * Return billing period.
      *
      * @return string
      */
-    public function getPeriod()
+    public function getBillingPeriod(): string
     {
-        return $this->period;
+        return $this->billing_period;
     }
 
     /**
@@ -82,7 +79,7 @@ class Subscription implements SubscriptionInterface
      *
      * @return DateTimeValueInterface
      */
-    public function getNextBillingTimestamp()
+    public function getNextBillingTimestamp(): DateTimeValueInterface
     {
         if (empty($this->next_billing_timestamp)) {
             $this->next_billing_timestamp = $this->calculateNextBillingTimestamp($this->getTimestamp());
@@ -94,10 +91,10 @@ class Subscription implements SubscriptionInterface
     /**
      * Set next billing timestamp.
      *
-     * @param  DateTimeValueInterface $value
-     * @return $this
+     * @param  DateTimeValueInterface      $value
+     * @return SubscriptionInterface|$this
      */
-    public function &setNextBillingTimestamp(DateTimeValueInterface $value)
+    public function &setNextBillingTimestamp(DateTimeValueInterface $value): SubscriptionInterface
     {
         $this->next_billing_timestamp = $value;
 
@@ -110,14 +107,14 @@ class Subscription implements SubscriptionInterface
      * @param  DateTimeValueInterface $reference
      * @return DateTimeValueInterface
      */
-    public function calculateNextBillingTimestamp(DateTimeValueInterface $reference)
+    public function calculateNextBillingTimestamp(DateTimeValueInterface $reference): DateTimeValueInterface
     {
         /** @var DateTimeValueInterface|Carbon $result */
         $result = clone $reference;
 
-        if ($this->getPeriod() == self::MONTHLY) {
+        if ($this->getBillingPeriod() == self::MONTHLY) {
             $result->addMonth();
-        } elseif ($this->getPeriod() == self::YEARLY) {
+        } elseif ($this->getBillingPeriod() == self::YEARLY) {
             $result->addYear();
         }
 
@@ -129,7 +126,7 @@ class Subscription implements SubscriptionInterface
      *
      * @param string $value
      */
-    protected function validatePeriod($value)
+    protected function validateBillingPeriod($value)
     {
         if ($value != self::MONTHLY && $value != self::YEARLY) {
             throw new InvalidArgumentException('Monthly and yearly periods are supported');

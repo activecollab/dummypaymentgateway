@@ -134,6 +134,6 @@ class Refund implements RefundInterface
      */
     public function isPartial()
     {
-        return $this->getTotal() < $this->getOrder()->getTotal();
+        return $this->getTotal() < $this->getOrder()->getTotalAmount();
     }
 }
