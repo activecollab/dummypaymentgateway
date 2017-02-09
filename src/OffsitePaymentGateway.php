@@ -155,6 +155,11 @@ class OffsitePaymentGateway implements GatewayInterface
         return $subscription;
     }
 
+    public function registerSubscription(SubscriptionInterface $subscription)
+    {
+        $this->subscriptions[$subscription->getReference()] = $subscription;
+    }
+
     /**
      * {@inheritdoc}
      */
