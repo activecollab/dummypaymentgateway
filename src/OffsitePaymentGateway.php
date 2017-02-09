@@ -29,10 +29,6 @@ use InvalidArgumentException;
 
 class OffsitePaymentGateway implements GatewayInterface
 {
-    use GatewayedObject;
-
-    private $dispatcher;
-
     /**
      * @var OrderInterface[]
      */
@@ -51,24 +47,30 @@ class OffsitePaymentGateway implements GatewayInterface
     /**
      * @param \ActiveCollab\Payments\Dispatcher\DispatcherInterface $dispatcher
      */
-    public function __construct(DispatcherInterface $dispatcher)
+    public function __construct(DispatcherInterface &$dispatcher)
     {
-        $this->setDispatcher($dispatcher);
+        $this->setDispatcherByReference($dispatcher);
     }
 
     /**
-     * Return dispatcher instance.
-     *
-     * @return DispatcherInterface
+     * @var DispatcherInterface
+     */
+    private $dispatcher;
+
+    /**
+     * {@inheritdoc}
      */
     public function getDispatcher(): DispatcherInterface
     {
         return $this->dispatcher;
     }
 
-    public function setDispatcher(DispatcherInterface $dispatcher)
+    /**
+     * {@inheritdoc}
+     */
+    protected function &setDispatcherByReference(DispatcherInterface $gateway): GatewayInterface
     {
-        $this->dispatcher = $dispatcher;
+        $this->dispatcher = $gateway;
 
         return $this;
     }
@@ -78,15 +80,15 @@ class OffsitePaymentGateway implements GatewayInterface
      */
     public function getIdentifier(): string
     {
-        return 'dopg'; // Dummy Offsite Payment Gateway
+        return 'test';
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getOurReference(): string
+    public function getOurIdentifier(): string
     {
-        return $this->getIdentifier();
+        return 'test';
     }
 
     /**
@@ -110,7 +112,7 @@ class OffsitePaymentGateway implements GatewayInterface
      */
     public function addPaymentMethod(CustomerInterface $customer, bool $set_as_default, ...$arguments): PaymentMethodInterface
     {
-        throw new BadMethodCallException(__METHOD__ . ' is not implemented yet');
+        throw new \BadMethodCallException('Not implemented just yet');
     }
 
     /**
@@ -142,9 +144,7 @@ class OffsitePaymentGateway implements GatewayInterface
      */
     public function createSubscription(CustomerInterface $customer, PaymentMethodInterface $payment_method, $product_name, string $period, ...$arguments): SubscriptionInterface
     {
-        return new Subscription($customer, '2016-02-03', new DateTimeValue(), $period, 'USD', [
-            new OrderItem('Monthly SaaS cost', 1, 200),
-        ]);
+        return new Subscription($customer, '2016-02-03', new DateTimeValue(), $period);
     }
 
     /**
@@ -170,7 +170,7 @@ class OffsitePaymentGateway implements GatewayInterface
     /**
      * {@inheritdoc}
      */
-    public function getProductIdByNameAndBillingPeriod(string $product_name, string $period = SubscriptionInterface::MONTHLY): string
+    public function getProductIdByNameAndBillingPeriod(string $product_name, string $period = SubscriptionInterface::BILLING_PERIOD_MONTHLY): string
     {
         return '';
     }
@@ -217,7 +217,8 @@ class OffsitePaymentGateway implements GatewayInterface
             $timestamp = new DateTimeValue();
         }
 
-        $refund = new Refund($order->getReference().'-X', $order->getReference(), $timestamp, $order->getTotalAmount(), $this);
+        $refund = new Refund($order->getReference() . '-X', $order->getReference(), $timestamp, $order->getTotalAmount(), $this);
+
         $this->refunds[$refund->getReference()] = $refund;
 
         $this->getDispatcher()->triggerOrderRefunded($this, $order, $refund);
@@ -238,7 +239,7 @@ class OffsitePaymentGateway implements GatewayInterface
             $timestamp = new DateTimeValue();
         }
 
-        $refund = new Refund($order->getReference().'-X', $order->getReference(), $timestamp, 200, $this);
+        $refund = new Refund($order->getReference() . '-X', $order->getReference(), $timestamp, 200, $this);
 
         if (!empty($items)) {
             $refund->setItems($items);
@@ -256,11 +257,7 @@ class OffsitePaymentGateway implements GatewayInterface
      */
     public function triggerSubscriptionActivated(SubscriptionInterface $subscription)
     {
-        if ($subscription instanceof Subscription) {
-            $subscription->setGatewayByReference($this);
-        }
-
-        $this->registerSubscription($subscription);
+        $this->subscriptions[$subscription->getReference()] = $subscription;
 
         $this->getDispatcher()->triggerSubscriptionActivated($this, $subscription);
     }
@@ -272,13 +269,9 @@ class OffsitePaymentGateway implements GatewayInterface
      * @param DateTimeValueInterface|null $timestamp
      * @param DateTimeValueInterface|null $next_billing_timestamp
      */
-    public function triggerSubscriptionRebilled(SubscriptionInterface $subscription, DateTimeValueInterface $timestamp = null, DateTimeValueInterface $next_billing_timestamp = null)
+    public function triggerSubscriptionRebill(SubscriptionInterface $subscription, DateTimeValueInterface $timestamp = null, DateTimeValueInterface $next_billing_timestamp = null)
     {
-        if ($subscription instanceof Subscription) {
-            $subscription->setGatewayByReference($this);
-        }
-
-        $this->registerSubscription($subscription);
+        $this->subscriptions[$subscription->getReference()] = $subscription;
 
         if (empty($timestamp)) {
             $timestamp = new DateTimeValue();
@@ -298,13 +291,9 @@ class OffsitePaymentGateway implements GatewayInterface
      * @param SubscriptionInterface       $subscription
      * @param DateTimeValueInterface|null $timestamp
      */
-    public function triggerSubscriptionChanged(SubscriptionInterface $subscription, DateTimeValueInterface $timestamp = null)
+    public function triggerSubscriptionChange(SubscriptionInterface $subscription, DateTimeValueInterface $timestamp = null)
     {
-        if ($subscription instanceof Subscription) {
-            $subscription->setGatewayByReference($this);
-        }
-
-        $this->registerSubscription($subscription);
+        $this->subscriptions[$subscription->getReference()] = $subscription;
 
         if (empty($timestamp)) {
             $timestamp = new DateTimeValue();
@@ -322,11 +311,7 @@ class OffsitePaymentGateway implements GatewayInterface
      */
     public function triggerSubscriptionDeactivated(SubscriptionInterface $subscription, DateTimeValueInterface $timestamp = null)
     {
-        if ($subscription instanceof Subscription) {
-            $subscription->setGatewayByReference($this);
-        }
-
-        $this->registerSubscription($subscription);
+        $this->subscriptions[$subscription->getReference()] = $subscription;
 
         if (empty($timestamp)) {
             $timestamp = new DateTimeValue();
@@ -344,11 +329,7 @@ class OffsitePaymentGateway implements GatewayInterface
      */
     public function triggerSubscriptionFailedPayment(SubscriptionInterface $subscription, DateTimeValueInterface $timestamp = null)
     {
-        if ($subscription instanceof Subscription) {
-            $subscription->setGatewayByReference($this);
-        }
-
-        $this->registerSubscription($subscription);
+        $this->subscriptions[$subscription->getReference()] = $subscription;
 
         if (empty($timestamp)) {
             $timestamp = new DateTimeValue();
@@ -359,13 +340,29 @@ class OffsitePaymentGateway implements GatewayInterface
     }
 
     /**
-     * Add subscription to the list of available subscriptions.
+     * Trigger account custom activated event.
      *
      * @param SubscriptionInterface $subscription
+     * @param string                $note
      */
-    public function registerSubscription(SubscriptionInterface $subscription)
+    public function triggerSubscriptionCustomActivated(SubscriptionInterface $subscription, $note)
     {
         $this->subscriptions[$subscription->getReference()] = $subscription;
+
+        $this->getDispatcher()->triggerSubscriptionCustomActivated($subscription, $note);
+    }
+
+    /**
+     * Trigger subscription expired an event.
+     *
+     * @param SubscriptionInterface $subscription
+     * @param string                $note
+     */
+    public function triggerSubscriptionExpired(SubscriptionInterface $subscription, $note)
+    {
+        $this->subscriptions[$subscription->getReference()] = $subscription;
+
+        $this->getDispatcher()->triggerSubscriptionExpired($subscription, $note);
     }
 
     /**
@@ -375,13 +372,13 @@ class OffsitePaymentGateway implements GatewayInterface
      * @param  PaymentMethodInterface $payment_method
      * @param  string                 $action
      * @param  DateValueInterface     $first_billing_date
-     * @return CommonOrderInterface
+     * @return OrderInterface
      */
-    public function executePreOrder(PreOrderInterface $pre_order, PaymentMethodInterface $payment_method, string $action, DateValueInterface $first_billing_date = null): CommonOrderInterface
+    public function executePreOrder(PreOrderInterface $pre_order, PaymentMethodInterface $payment_method, string $action, DateValueInterface $first_billing_date = null): OrderInterface
     {
-        return new Subscription(new Customer('Vladan Jovic', 'dummy@payment.net'), '2016-02-03', new DateTimeValue(), 'monthly', 'USD', [
-            new OrderItem('Monthly SaaS cost', 1, 200),
-        ]);
+        $customer = new Customer('Test', 'test@example.com', false);
+
+        return new Subscription($customer, '2016-01', new DateTimeValue(), SubscriptionInterface::BILLING_PERIOD_MONTHLY);
     }
 
     /**

@@ -70,9 +70,7 @@ class OffsitePaymentGatewayTest extends TestCase
             new OrderItem('Not so expensive product', 2, 100),
         ]);
 
-        $this->subscription = new Subscription($this->customer, '2015-01', $this->timestamp, SubscriptionInterface::MONTHLY, 'USD', [
-            new OrderItem('Monthly SaaS cost', 1, 25),
-        ]);
+        $this->subscription = new Subscription($this->customer, '2015-01', $this->timestamp, SubscriptionInterface::BILLING_PERIOD_MONTHLY);
     }
 
     /**
@@ -208,7 +206,7 @@ class OffsitePaymentGatewayTest extends TestCase
             $event_triggered = true;
         });
 
-        $this->gateway->triggerSubscriptionRebilled($this->subscription, $this->timestamp);
+        $this->gateway->triggerSubscriptionRebill($this->subscription, $this->timestamp);
 
         $this->assertTrue($event_triggered);
     }
@@ -231,7 +229,7 @@ class OffsitePaymentGatewayTest extends TestCase
             $event_triggered = true;
         });
 
-        $this->gateway->triggerSubscriptionChanged($this->subscription);
+        $this->gateway->triggerSubscriptionChange($this->subscription);
 
         $this->assertTrue($event_triggered);
     }

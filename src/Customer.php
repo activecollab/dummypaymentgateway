@@ -24,27 +24,34 @@ class Customer extends IdentifiedVisitor implements CustomerInterface
      */
     private $address;
 
-    /**
-     * @var string|null
-     */
-    private $phone_number;
+    private $phone_number = '';
 
-    public function getReference(GatewayInterface $gateway)
+    public function getReference(): string
     {
         return $this->getEmail();
     }
 
-    public function getOurReference()
+    public function getOurIdentifier(): string
     {
         return $this->getEmail();
     }
 
-    public function getDefaultPaymentMethod(GatewayInterface $gateway): ?PaymentMethodInterface
+    public function getDefaultPaymentMethod(): ?PaymentMethodInterface
+    {
+
+    }
+
+    public function getDefaultGatewayPaymentMethod(GatewayInterface $gateway): ?PaymentMethodInterface
     {
         return null;
     }
 
-    public function listPaymentMethods(GatewayInterface $gateway): array
+    public function getPaymentMethods(): ?iterable
+    {
+        return [];
+    }
+
+    public function getGatewayPaymentMethods(GatewayInterface $gateway): ?iterable
     {
         return [];
     }
@@ -59,9 +66,13 @@ class Customer extends IdentifiedVisitor implements CustomerInterface
         return $this->address;
     }
 
-    public function &setAddress(AddressInterface $value = null): CustomerInterface
+    /**
+     * @param  AddressInterface|null   $address
+     * @return CustomerInterface|$this
+     */
+    public function &setAddress(AddressInterface $address = null): CustomerInterface
     {
-        $this->address = $value;
+        $this->address = $address;
 
         return $this;
     }
@@ -71,6 +82,10 @@ class Customer extends IdentifiedVisitor implements CustomerInterface
         return $this->phone_number;
     }
 
+    /**
+     * @param  string|null             $value
+     * @return CustomerInterface|$this
+     */
     public function &setPhoneNumber(string $value = null): CustomerInterface
     {
         $this->phone_number = trim($value);
