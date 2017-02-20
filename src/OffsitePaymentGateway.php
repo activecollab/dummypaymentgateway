@@ -13,8 +13,7 @@ namespace ActiveCollab\DummyPaymentGateway;
 use ActiveCollab\DateValue\DateTimeValue;
 use ActiveCollab\DateValue\DateTimeValueInterface;
 use ActiveCollab\DateValue\DateValueInterface;
-use ActiveCollab\Payments\Common\Traits\GatewayedObject;
-use ActiveCollab\Payments\CommonOrder\CommonOrderInterface;
+use ActiveCollab\Payments\Address\AddressInterface;
 use ActiveCollab\Payments\Customer\CustomerInterface;
 use ActiveCollab\Payments\Dispatcher\DispatcherInterface;
 use ActiveCollab\Payments\Gateway\GatewayInterface;
@@ -24,7 +23,6 @@ use ActiveCollab\Payments\OrderItem\OrderItemInterface;
 use ActiveCollab\Payments\PaymentMethod\PaymentMethodInterface;
 use ActiveCollab\Payments\PreOrder\PreOrderInterface;
 use ActiveCollab\Payments\Subscription\SubscriptionInterface;
-use BadMethodCallException;
 use InvalidArgumentException;
 
 class OffsitePaymentGateway implements GatewayInterface
@@ -110,7 +108,7 @@ class OffsitePaymentGateway implements GatewayInterface
     /**
      * {@inheritdoc}
      */
-    public function addPaymentMethod(CustomerInterface $customer, bool $set_as_default, ...$arguments): PaymentMethodInterface
+    public function addPaymentMethod(CustomerInterface $customer, ?AddressInterface $address, bool $set_as_default, ...$arguments): PaymentMethodInterface
     {
         throw new \BadMethodCallException('Not implemented just yet');
     }
